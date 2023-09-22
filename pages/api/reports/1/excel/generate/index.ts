@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import ExcelJS from 'exceljs';
 import { getData } from "../../index"
+import { getSession } from "next-auth/react";
 
 export default async function handler(req: any, res: any) {
 
@@ -17,7 +18,9 @@ export default async function handler(req: any, res: any) {
 
 const generateExcel = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const data = await getData({ req: req, deletedAt: true });
+    const session: any = await getSession({ req });
+
+    const data = await getData({ req: req, deletedAt: true, userId: session.currentUser._id });
 
     console.log(data.dispersals.villages);
 
