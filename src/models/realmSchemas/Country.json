@@ -1,0 +1,35 @@
+{
+  "title": "Country",
+  "properties": {
+    "__v": {
+      "bsonType": "int"
+    },
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "createdBy": {
+      "title": "UserEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "firstName": {
+          "bsonType": "string"
+        },
+        "lastName": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "deleted": {
+      "bsonType": "bool"
+    },
+    "name": {
+      "bsonType": "string"
+    },
+    "secondaryId": {
+      "bsonType": "string"
+    }
+  }
+}

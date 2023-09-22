@@ -1,0 +1,86 @@
+{
+  "title": "CowPurchaseRequest",
+  "properties": {
+    "__v": {
+      "bsonType": "int"
+    },
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "calculatedPurchasePrice": {
+      "bsonType": "string"
+    },
+    "createdBy": {
+      "title": "UserEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "firstName": {
+          "bsonType": "string"
+        },
+        "lastName": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "deleted": {
+      "bsonType": "bool"
+    },
+    "farm": {
+      "title": "FarmEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "district": {
+          "title": "DistrictEmbedded",
+          "bsonType": "object",
+          "properties": {
+            "_id": {
+              "bsonType": "string"
+            },
+            "country": {
+              "title": "CountryEmbedded",
+              "bsonType": "object",
+              "properties": {
+                "_id": {
+                  "bsonType": "string"
+                },
+                "name": {
+                  "bsonType": "string"
+                }
+              }
+            },
+            "name": {
+              "bsonType": "string"
+            }
+          }
+        },
+        "name": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "noOfCows": {
+      "bsonType": "string"
+    },
+    "pricePerCow": {
+      "bsonType": "string"
+    },
+    "reasonForPurchase": {
+      "bsonType": "string"
+    },
+    "rejectedReason": {
+      "bsonType": "string"
+    },
+    "secondaryId": {
+      "bsonType": "string"
+    },
+    "status": {
+      "bsonType": "string"
+    }
+  }
+}

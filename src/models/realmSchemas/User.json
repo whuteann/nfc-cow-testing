@@ -1,0 +1,119 @@
+{
+  "title": "User",
+  "properties": {
+    "__v": {
+      "bsonType": "int"
+    },
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "countries": {
+      "bsonType": "array",
+      "items": {
+        "title": "CountryEmbedded",
+        "bsonType": "object",
+        "properties": {
+          "_id": {
+            "bsonType": "string"
+          },
+          "name": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "createdBy": {
+      "title": "UserEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "firstName": {
+          "bsonType": "string"
+        },
+        "lastName": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "deleted": {
+      "bsonType": "bool"
+    },
+    "email": {
+      "bsonType": "string"
+    },
+    "farms": {
+      "bsonType": "array",
+      "items": {
+        "title": "FarmEmbedded",
+        "bsonType": "object",
+        "properties": {
+          "_id": {
+            "bsonType": "string"
+          },
+          "district": {
+            "title": "DistrictEmbedded",
+            "bsonType": "object",
+            "properties": {
+              "_id": {
+                "bsonType": "string"
+              },
+              "country": {
+                "title": "CountryEmbedded",
+                "bsonType": "object",
+                "properties": {
+                  "_id": {
+                    "bsonType": "string"
+                  },
+                  "name": {
+                    "bsonType": "string"
+                  }
+                }
+              },
+              "name": {
+                "bsonType": "string"
+              }
+            }
+          },
+          "name": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "firstName": {
+      "bsonType": "string"
+    },
+    "image": {
+      "bsonType": "string"
+    },
+    "joinedAt": {
+      "bsonType": "date"
+    },
+    "lastName": {
+      "bsonType": "string"
+    },
+    "password": {
+      "bsonType": "string"
+    },
+    "permissions": {
+      "bsonType": "array",
+      "items": {
+        "bsonType": "string"
+      }
+    },
+    "realmUserId": {
+      "bsonType": "string"
+    },
+    "role": {
+      "bsonType": "string"
+    },
+    "secondaryId": {
+      "bsonType": "string"
+    },
+    "updatedAt": {
+      "bsonType": "date"
+    }
+  }
+}

@@ -1,0 +1,635 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+type CreatedBy {
+  id        String? @map("_id") @db.ObjectId
+  firstName String
+  lastName  String
+}
+
+model User {
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId     String?
+  firstName       String
+  lastName        String
+  email           String     @unique
+  password        String
+  role            String
+  farmRole        String?
+  teamLeadId      String?    @db.ObjectId
+  supervisorId    String?    @db.ObjectId
+  // coordinatorAccount  Family? @relation("authAccount")
+  countryIds      String[]   @db.ObjectId
+  countries       Country[]  @relation(fields: [countryIds], references: [id])
+  farmIds         String[]   @db.ObjectId
+  farms           Farm[]     @relation(fields: [farmIds], references: [id])
+  logs            Log[]
+  coordinators    Family[]
+  permissions     String[]
+  image           String?
+  createdBy       CreatedBy?
+  changedPassword Boolean    @default(false)
+  joinedAt        DateTime   @default(now())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @default(now())
+  deleted         Boolean    @default(false)
+  deletedAt       DateTime?
+  status          String?    @default("Active")
+
+  @@map("users")
+}
+
+model Cow {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId     String?
+
+  farm            Farm?   @relation(fields: [farmId], references: [id])
+  farmId          String? @db.ObjectId
+
+  family          Family?   @relation(fields: [familyId], references: [id])
+  familyId        String?   @db.ObjectId
+  nfcId           String?
+  cowPhoto        String?
+  weight          Float
+  gender          String
+  type            String?
+  status          String?
+  birthDate        DateTime?
+  dispersalDate             DateTime?
+  deathDate                 DateTime?
+
+  cowWithFamilyPhoto String?
+  cowPrice           Float
+  isFrom             String?
+  hasBred            Boolean?
+
+  familyTransfers   FamilyTransferRequest[] @relation("familyTransferCows", fields: [familyTransferIds], references: [id])
+  familyTransferIds String[]                @db.ObjectId
+
+  familyFarmTransfers   FamilyFarmTransferRequest[] @relation("familyFarmTransferCows", fields: [familyFarmTransferIds], references: [id])
+  familyFarmTransferIds String[]                    @db.ObjectId
+
+  cowDispersals         CowDispersal[] @relation(fields: [cowDispersalIds], references: [id])
+  cowDispersalIds       String[]       @db.ObjectId
+
+  familyVisitations     FamilyVisitation[] @relation(fields: [familyVisitationIds], references: [id])
+  familyVisitationIds   String[]       @db.ObjectId
+
+  familyCowSales        FamilyCowSale[] @relation(fields: [familyCowSalesIds], references: [id])
+  familyCowSalesIds     String[]   @db.ObjectId
+
+  //Pakistan Exclusive
+  taxPrice                  Float?
+  coordinatorHelperExpenses Float?
+  signedLegalDoc            String?
+  signedLegalDocFilename    String?
+  transportPrice            Float?
+
+  //Bangladesh Exclusive
+  ageYear                          Int?
+  ageMonth                         Int?
+  height                           Float?
+  purchaseDate                     DateTime?
+  signedDispersalAgreement         String?
+  signedDispersalAgreementFilename String?
+
+  //Birth Records
+  birthRecords              BirthRecord[]
+  familyBirthRecords        FamilyBirthRecord[]
+
+  //Death Records
+  deathRecords DeathRecord[]
+
+  //CowFarmSaleRequest
+  cowFarmSaleRequest    CowFarmSaleRequest[] @relation(fields: [cowFarmSaleRequestIds], references: [id])
+  cowFarmSaleRequestIds String[]             @db.ObjectId
+
+  familySalesDate  DateTime?
+  familySellingPrice Float?
+  farmSellingPrice Float?
+  farmSalesDate    DateTime?
+  buyer            String?
+  buyerType        String?
+  topUpAmount      Float?
+  totalProfit      Float?
+  totalPrice       Float?
+  cciShare         Float?
+  familyShare      Float?
+  health           String?
+  sighted          Boolean?
+
+  colour    String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  createdBy CreatedBy?
+  deleted      Boolean    @default(false)
+  deletedAt DateTime?
+
+  @@map("cows")
+}
+
+model Country {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId String?
+  name        String
+  userIds     String[]   @db.ObjectId
+  users       User[]     @relation(fields: [userIds], references: [id])
+  districts   District[]
+  createdBy   CreatedBy?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now())
+  deleted      Boolean    @default(false)
+  deletedAt   DateTime?
+
+  @@map("countries")
+}
+
+model District {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId  String?
+  name         String
+  country      Country       @relation(fields: [countryId], references: [id])
+  countryId    String        @db.ObjectId
+  townVillages TownVillage[]
+  farms        Farm[]
+  createdBy    CreatedBy?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
+  deleted      Boolean        @default(false)
+  deletedAt    DateTime?
+
+  @@unique([name, countryId], name: "districtIdentifier")
+  @@map("districts")
+}
+
+model TownVillage {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId   String?
+  name          String
+  townVillage   String
+  district      District   @relation(fields: [districtId], references: [id])
+  districtId    String     @db.ObjectId
+  families      Family[]   @relation("townVillage")
+  overseenByIds String[]   @db.ObjectId
+  overseenBy    Family[]   @relation("overseeTownsVillages", fields: [overseenByIds], references: [id])
+  createdBy     CreatedBy?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @default(now())
+  deleted      Boolean    @default(false)
+  deletedAt     DateTime?
+
+  @@map("town_villages")
+}
+
+model Farm {
+  id                         String                      @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId                String?
+  name                       String
+  userIds                    String[]                    @db.ObjectId
+  users                      User[]                      @relation(fields: [userIds], references: [id])
+  districtId                 String                      @db.ObjectId
+  district                   District                    @relation(fields: [districtId], references: [id])
+  cows                       Cow[]
+  cowFarmSaleRequest         CowFarmSaleRequest[]
+  birthRecords               BirthRecord[]
+  deathRecord                DeathRecord[]
+  cowPurchaseRequests        CowPurchaseRequest[]
+  familyFarmTransferRequests FamilyFarmTransferRequest[] @relation("familyFarmTransferFarm")
+  totalFarmCows              TotalFarmCows?
+  createdBy                  CreatedBy?
+  createdAt                  DateTime                    @default(now())
+  updatedAt                  DateTime                    @default(now())
+  deleted      Boolean    @default(false)
+  deletedAt                  DateTime?
+
+  @@map("farms")
+}
+
+model TotalFarmCows {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  farm              Farm     @relation(fields: [farmId], references: [id])
+  farmId            String   @unique @db.ObjectId
+  totalAmountOfCows Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime? @default(now())
+  deletedAt         DateTime?
+
+  @@map("total_farm_cows")
+}
+
+model CowPurchaseRequest {
+  id                      String    @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId             String?
+  farm                    Farm      @relation(fields: [farmId], references: [id])
+  farmId                  String    @db.ObjectId
+  noOfCows                Int
+  pricePerCow             Int
+  reasonForPurchase       String?
+  calculatedPurchasePrice Int
+  status                  String
+  rejectedReason          String?
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @default(now())
+  deleted      Boolean    @default(false)
+  deletedAt               DateTime?
+  createdBy      CreatedBy?
+
+  @@map("cow_purchase_requests")
+}
+
+model FamilyTransferRequest {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId String
+  status      String
+  family1     Family @relation("family1", fields: [family1Id], references: [id])
+  family1Id   String @db.ObjectId
+  family2     Family @relation("family2", fields: [family2Id], references: [id])
+  family2Id   String @db.ObjectId
+  // date              DateTime
+  noOfCows    Int
+
+  cows           Cow[]      @relation("familyTransferCows", fields: [cowIds], references: [id])
+  cowIds         String[]   @db.ObjectId
+  rejectedReason String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @default(now())
+  createdBy      CreatedBy?
+  deleted      Boolean    @default(false)
+  deletedAt      DateTime?
+
+  @@map("family_transfer_requests")
+}
+
+model FamilyFarmTransferRequest {
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId    String
+  status         String
+  family         Family     @relation("familyFarmTransferFamily", fields: [familyId], references: [id])
+  familyId       String     @db.ObjectId
+  farm           Farm       @relation("familyFarmTransferFarm", fields: [farmId], references: [id])
+  farmId         String     @db.ObjectId
+  noOfCows       Int
+  cows           Cow[]      @relation("familyFarmTransferCows", fields: [cowIds], references: [id])
+  cowIds         String[]   @db.ObjectId
+  rejectedReason String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @default(now())
+  createdBy      CreatedBy?
+  deleted      Boolean    @default(false)
+  deletedAt      DateTime?
+
+  @@map("family_farm_transfer_requests")
+}
+
+model Counter {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  seq  Int    @default(0)
+
+  @@map("counters")
+}
+
+model Family {
+  id                    String      @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId           String
+  userId                String?     @db.ObjectId
+  type                  String
+  status                String
+  rejectedReason        String?
+  coordinatorType       String?
+  houseType             String?
+  address               String?
+  unionCouncil          String?
+  province              String?
+  nearestFamousLandmard String?
+  cityName              String?
+  townVillage           TownVillage @relation("townVillage", fields: [townVillageId], references: [id])
+  townVillageId         String      @db.ObjectId
+
+  flatNumber              String?
+  buildingName            String?
+  areaName                String?
+  policeStationThanaName  String?
+  postOfficeName          String?
+  name                    String?
+  nfcID                   String?
+  nationalID              String?
+  notes                   String?
+  contact                 String?
+  religion                String?
+  headshot                String?
+  overseeTownsVillages    TownVillage[] @relation("overseeTownsVillages", fields: [overseeTownsVillagesIds], references: [id])
+  overseeTownsVillagesIds String[]      @db.ObjectId
+
+  spouseName              String?
+  contractForm            String?
+  contractFormFilename    String?
+  familyPhoto             String?
+  housePhoto              String?
+  applicationForm         String?
+  applicationFormFilename String?
+  typeOfAnimalAllowed     String?
+  noAnimalsAllocated      Int?
+  children                Child[]
+
+  supervisor    User?          @relation(fields: [supervisorId], references: [id])
+  supervisorId  String?        @db.ObjectId
+  coordinator   Family?        @relation("CoordinatorForFamily", fields: [coordinatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  coordinatorId String?        @db.ObjectId
+  families      Family[]       @relation("CoordinatorForFamily")
+  cowDispersals CowDispersal[]
+  cows          Cow[]
+  deathRecord   DeathRecord[]
+  familyVisitations FamilyVisitation[]
+  familyCowSales    FamilyCowSale[]
+
+  family1                    FamilyTransferRequest[]     @relation("family1")
+  family2                    FamilyTransferRequest[]     @relation("family2")
+  familyFarmTransferRequests FamilyFarmTransferRequest[] @relation("familyFarmTransferFamily")
+  birthRecords               FamilyBirthRecord[]
+  createdBy                  CreatedBy?
+  createdAt                  DateTime                    @default(now())
+  updatedAt                  DateTime                    @default(now())
+
+  deleted      Boolean    @default(false)
+  deletedAt DateTime?
+
+  @@map("families")
+}
+
+model BirthRecord {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId  String
+  status       String
+  farmId       String        @db.ObjectId
+  farm         Farm?         @relation(fields: [farmId], references: [id])
+  option       String
+  dateOfBirth  DateTime
+  aliveCalves  Int
+  deadCalves   Int
+  comment      String
+  cowId        String        @db.ObjectId
+  cow          Cow?          @relation(fields: [cowId], references: [id]) //parent cow
+  cowsSnapshot CowSnapshot[]
+  // calves                  Cow[] //children cows
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
+  deleted      Boolean    @default(false)
+  deletedAt    DateTime?
+  createdBy    CreatedBy?
+
+  @@map("birth_records")
+}
+
+model FamilyBirthRecord {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId  String
+  status       String
+  familyId     String        @db.ObjectId
+  family       Family?       @relation(fields: [familyId], references: [id])
+  option       String?
+  dateOfBirth  DateTime
+  aliveCalves  Int
+  deadCalves   Int
+  comment      String
+  cowId        String        @db.ObjectId
+  cow          Cow?          @relation(fields: [cowId], references: [id]) //parent cow
+  cowsSnapshot CowSnapshot[]
+  // calves                  Cow[] //children cows
+  createdAt    DateTime      @default(now())
+  deletedAt    DateTime?
+  createdBy    CreatedBy?
+
+  @@map("family_birth_records")
+}
+
+model DeathRecord {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId  String
+  type         String //"Farm" or "Family"
+  option       String?
+  familyId     String?       @db.ObjectId
+  family       Family?       @relation(fields: [familyId], references: [id])
+  farmId       String?       @db.ObjectId
+  farm         Farm?         @relation(fields: [farmId], references: [id])
+  cowId        String        @db.ObjectId
+  cow          Cow           @relation(fields: [cowId], references: [id])
+  cowsSnapshot CowSnapshot[]
+
+  deathCause     String
+  dateOfDeath    DateTime
+  cowPic         String
+  report         String
+  reportFilename String?
+  status         String
+  rejectedReason String?
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  deleted      Boolean    @default(false)
+  deletedAt DateTime?
+  createdBy CreatedBy?
+
+  @@map("death_records")
+}
+
+model CowFarmSaleRequest {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId    String
+  cows           Cow[]         @relation(fields: [cowIds], references: [id])
+  cowIds         String[]      @db.ObjectId
+  cowsSnapshot   CowSnapshot[]
+  farmId         String        @db.ObjectId
+  farm           Farm?         @relation(fields: [farmId], references: [id])
+  status         String
+  rejectedReason String?
+  quantity       Int
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @default(now())
+  deleted      Boolean    @default(false)
+  deletedAt      DateTime?
+  createdBy      CreatedBy?
+
+  @@map("cow_farm_sale_requests")
+}
+
+model Log {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  user           User     @relation(fields: [userId], references: [id])
+  userId         String   @db.ObjectId
+  method         String
+  documentId     String?
+  oldObject      Json?
+  editedObject   Json
+  editedFields   LogField[]
+  message        String
+  collectionName String
+  type           String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now())
+
+  @@map("logs")
+}
+
+type LogEntry {
+  field String
+  value String
+}
+
+type LogField {
+  field String
+}
+
+type Child {
+  childGender String
+  dateOfBirth DateTime?
+}
+
+model CowDispersal {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId    String?
+  status         String
+  date           DateTime
+  family         Family        @relation(fields: [familyId], references: [id])
+  familyId       String        @db.ObjectId
+  noOfCows       Int
+  rejectedReason String?
+  cows           Cow[]         @relation(fields: [cowIds], references: [id])
+  cowIds         String[]      @db.ObjectId
+  cowsSnapshot   CowSnapshot[]
+  createdBy      CreatedBy?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @default(now())
+  deleted      Boolean    @default(false)
+  deletedAt      DateTime?
+
+  @@map("cow_dispersals")
+}
+
+model FamilyVisitation {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  secondaryId    String?
+  status         String?
+
+  cows           Cow[]         @relation(fields: [cowIds], references: [id])
+  cowIds         String[]      @db.ObjectId
+  cowsSnapshot   CowSnapshot[]
+  family         Family        @relation(fields: [familyId], references: [id])
+  familyId       String        @db.ObjectId
+  noOfCows       Int?
+  note           String?
+  visitationDate DateTime?
+
+  createdBy      CreatedBy?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @default(now())
+  deleted        Boolean       @default(false)
+  deletedAt      DateTime?
+
+  @@map("family_visitations")
+}
+
+model FamilyCowSale {
+    id             String        @id @default(auto()) @map("_id") @db.ObjectId
+    amountReceived Int
+    cowsSnapshot   CowSnapshot[]
+    cows           Cow[]         @relation(fields: [cowIds], references: [id])
+    cowIds         String[]      @db.ObjectId
+    
+    dateOfSale     DateTime
+    family         Family        @relation(fields: [familyId], references: [id])
+    familyId       String        @db.ObjectId
+    nfcID          String
+    noOfCows       Int
+    secondaryId    String
+    status         String
+    totalPrice     Int
+
+
+    deleted        Boolean
+    deletedAt      DateTime?
+    createdAt      DateTime      @default(now())
+    createdBy      CreatedBy?
+    updatedAt      DateTime      @default(now())
+    updatedBy      CreatedBy?
+
+    @@map("family_cow_sales")
+}
+
+type CowSnapshot {
+  id          String  @map("_id") @db.ObjectId
+  secondaryId String?
+
+  farmId             String?   @db.ObjectId
+  familyId           String?   @db.ObjectId
+  nfcId              String?
+  cowPhoto           String?
+  weight             Float?
+  gender             String?
+  type               String?
+  status             String?
+  birthDate          DateTime?
+  dispersalDate      DateTime?
+  deathDate          DateTime?
+  cowWithFamilyPhoto String?
+  cowPrice           Float?
+  isFrom             String?
+  hasBred            Boolean?
+
+  familyTransferIds String[] @db.ObjectId
+
+  familyFarmTransferIds String[] @db.ObjectId
+
+  cowDispersalIds String[] @db.ObjectId
+
+  birthRecordIds String[] @db.ObjectId
+
+  deathRecordIds String[] @db.ObjectId
+
+  cowFarmSaleRequestIds String[] @db.ObjectId
+
+  //Pakistan Exclusive
+  taxPrice                  Float?
+  coordinatorHelperExpenses Float?
+  signedLegalDoc            String?
+  signedLegalDocFilename    String?
+  transportPrice            Float?
+
+  //Bangladesh Exclusive
+  ageYear                          Int?
+  ageMonth                         Int?
+  height                           Float?
+  purchaseDate                     DateTime?
+  signedDispersalAgreement         String?
+  signedDispersalAgreementFilename String?
+
+  familySalesDate  DateTime?
+  familySellingPrice Float?
+  farmSellingPrice Float?
+  farmSalesDate    DateTime?
+  buyer            String?
+  buyerType        String?
+  topUpAmount      Float?
+  totalProfit      Float?
+  totalPrice       Float?
+  cciShare         Float?
+  familyShare      Float?
+  health           String?
+  sighted          Boolean?
+
+  colour    String?
+  createdAt DateTime?
+  updatedAt DateTime?
+  createdBy CreatedBy?
+  deleted      Boolean    @default(false)
+  deletedAt DateTime?
+}

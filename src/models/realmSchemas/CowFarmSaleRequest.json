@@ -1,0 +1,86 @@
+{
+  "title": "CowFarmSaleRequest",
+  "properties": {
+    "__v": {
+      "bsonType": "int"
+    },
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "createdBy": {
+      "title": "UserEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "firstName": {
+          "bsonType": "string"
+        },
+        "lastName": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "dateOfSale": {
+      "bsonType": "date"
+    },
+    "deleted": {
+      "bsonType": "bool"
+    },
+    "farm": {
+      "title": "FarmEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "district": {
+          "title": "DistrictEmbedded",
+          "bsonType": "object",
+          "properties": {
+            "_id": {
+              "bsonType": "string"
+            },
+            "country": {
+              "title": "CountryEmbedded",
+              "bsonType": "object",
+              "properties": {
+                "_id": {
+                  "bsonType": "string"
+                },
+                "name": {
+                  "bsonType": "string"
+                }
+              }
+            },
+            "name": {
+              "bsonType": "string"
+            }
+          }
+        },
+        "name": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "maxPrice": {
+      "bsonType": "int"
+    },
+    "minMax": {
+      "bsonType": "string"
+    },
+    "minPrice": {
+      "bsonType": "int"
+    },
+    "quantity": {
+      "bsonType": "int"
+    },
+    "secondaryId": {
+      "bsonType": "string"
+    },
+    "status": {
+      "bsonType": "string"
+    }
+  }
+}

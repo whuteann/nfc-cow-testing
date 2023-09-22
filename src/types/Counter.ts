@@ -1,0 +1,15 @@
+export const USER_ID = 'USR_';
+export const COUNTRY_ID = 'CY_';
+export const DISTRICT_ID = 'DT_';
+export const TOWNVILLAGE_ID = 'TV_';
+export const FARM_ID = 'FM_';
+export const COW_ID = 'CW_';
+export const COW_PURCHASE_REQUEST_ID = "CPR_";
+export const FAMILY_TRANSFER_REQUEST_ID = "FTR_";
+export const FAMILY_FARM_TRANSFER_REQUEST_ID = "FFTR_"
+export const FAMILY_ID = 'FY_';
+export const COORDINATOR_ID = 'CR_';
+export const BIRTHRECORD_ID = 'BR_';
+export const DEATHRECORD_ID = 'CDTH_';
+export const COW_DISPERSAL_ID = 'CD_';
+export const COW_FARMSALESREQUEST_ID = 'CFSR_';

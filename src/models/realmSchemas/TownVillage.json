@@ -1,0 +1,62 @@
+{
+  "title": "TownVillage",
+  "properties": {
+    "__v": {
+      "bsonType": "int"
+    },
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "createdBy": {
+      "title": "UserEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "firstName": {
+          "bsonType": "string"
+        },
+        "lastName": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "deleted": {
+      "bsonType": "bool"
+    },
+    "district": {
+      "title": "DistrictEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "country": {
+          "title": "CountryEmbedded",
+          "bsonType": "object",
+          "properties": {
+            "_id": {
+              "bsonType": "string"
+            },
+            "name": {
+              "bsonType": "string"
+            }
+          }
+        },
+        "name": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "name": {
+      "bsonType": "string"
+    },
+    "secondaryId": {
+      "bsonType": "string"
+    },
+    "townVillage": {
+      "bsonType": "string"
+    }
+  }
+}

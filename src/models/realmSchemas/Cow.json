@@ -1,0 +1,629 @@
+{
+  "title": "Cow",
+  "properties": {
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "secondaryId": {
+      "bsonType": "string"
+    },
+    "farm": {
+      "title": "FarmEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "district": {
+          "title": "DistrictEmbedded",
+          "bsonType": "object",
+          "properties": {
+            "_id": {
+              "bsonType": "string"
+            },
+            "country": {
+              "title": "CountryEmbedded",
+              "bsonType": "object",
+              "properties": {
+                "_id": {
+                  "bsonType": "string"
+                },
+                "name": {
+                  "bsonType": "string"
+                }
+              }
+            },
+            "name": {
+              "bsonType": "string"
+            }
+          }
+        },
+        "name": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "family": {
+      "title": "FamilyEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "__v": {
+          "bsonType": "int"
+        },
+        "_id": {
+          "bsonType": "string"
+        },
+        "address": {
+          "bsonType": "string"
+        },
+        "applicationForm": {
+          "bsonType": "string"
+        },
+        "areaName": {
+          "bsonType": "string"
+        },
+        "baptismDate": {
+          "bsonType": "string"
+        },
+        "buildingName": {
+          "bsonType": "string"
+        },
+        "children": {
+          "bsonType": "array",
+          "items": {
+            "title": "ChildEmbedded",
+            "bsonType": "object",
+            "properties": {
+              "childDOB": {
+                "bsonType": "string"
+              },
+              "childGender": {
+                "bsonType": "string"
+              }
+            }
+          }
+        },
+        "cityName": {
+          "bsonType": "string"
+        },
+        "contact": {
+          "bsonType": "string"
+        },
+        "contractForm": {
+          "bsonType": "string"
+        },
+        "convertedDate": {
+          "bsonType": "string"
+        },
+        "coordinator": {
+          "title": "CoordinatorEmbedded",
+          "bsonType": "object",
+          "properties": {
+            "__v": {
+              "bsonType": "int"
+            },
+            "_id": {
+              "bsonType": "string"
+            },
+            "address": {
+              "bsonType": "string"
+            },
+            "applicationForm": {
+              "bsonType": "string"
+            },
+            "areaName": {
+              "bsonType": "string"
+            },
+            "baptismDate": {
+              "bsonType": "string"
+            },
+            "buildingName": {
+              "bsonType": "string"
+            },
+            "children": {
+              "bsonType": "array",
+              "items": {
+                "title": "ChildEmbedded",
+                "bsonType": "object",
+                "properties": {
+                  "childDOB": {
+                    "bsonType": "string"
+                  },
+                  "childGender": {
+                    "bsonType": "string"
+                  }
+                }
+              }
+            },
+            "cityName": {
+              "bsonType": "string"
+            },
+            "contact": {
+              "bsonType": "string"
+            },
+            "contractForm": {
+              "bsonType": "string"
+            },
+            "convertedDate": {
+              "bsonType": "string"
+            },
+            "coordinatorType": {
+              "bsonType": "string"
+            },
+            "deleted": {
+              "bsonType": "bool"
+            },
+            "familyPhoto": {
+              "bsonType": "string"
+            },
+            "flatNumber": {
+              "bsonType": "string"
+            },
+            "headshot": {
+              "bsonType": "string"
+            },
+            "housePhoto": {
+              "bsonType": "string"
+            },
+            "houseType": {
+              "bsonType": "string"
+            },
+            "name": {
+              "bsonType": "string"
+            },
+            "nationalID": {
+              "bsonType": "string"
+            },
+            "nearestFamousLandmard": {
+              "bsonType": "string"
+            },
+            "noAnimalsAllocated": {
+              "bsonType": "int"
+            },
+            "notes": {
+              "bsonType": "string"
+            },
+            "overseeTownsVillages": {
+              "bsonType": "array",
+              "items": {
+                "title": "TownVillageEmbedded",
+                "bsonType": "object",
+                "properties": {
+                  "__v": {
+                    "bsonType": "int"
+                  },
+                  "_id": {
+                    "bsonType": "string"
+                  },
+                  "createdBy": {
+                    "title": "UserEmbedded",
+                    "bsonType": "object",
+                    "properties": {
+                      "_id": {
+                        "bsonType": "string"
+                      },
+                      "firstName": {
+                        "bsonType": "string"
+                      },
+                      "lastName": {
+                        "bsonType": "string"
+                      }
+                    }
+                  },
+                  "deleted": {
+                    "bsonType": "bool"
+                  },
+                  "district": {
+                    "title": "DistrictEmbedded",
+                    "bsonType": "object",
+                    "properties": {
+                      "_id": {
+                        "bsonType": "string"
+                      },
+                      "country": {
+                        "title": "CountryEmbedded",
+                        "bsonType": "object",
+                        "properties": {
+                          "_id": {
+                            "bsonType": "string"
+                          },
+                          "name": {
+                            "bsonType": "string"
+                          }
+                        }
+                      },
+                      "name": {
+                        "bsonType": "string"
+                      }
+                    }
+                  },
+                  "name": {
+                    "bsonType": "string"
+                  },
+                  "secondaryId": {
+                    "bsonType": "string"
+                  },
+                  "townVillage": {
+                    "bsonType": "string"
+                  }
+                }
+              }
+            },
+            "policeStationThanaName": {
+              "bsonType": "string"
+            },
+            "postOfficeName": {
+              "bsonType": "string"
+            },
+            "postalCode": {
+              "bsonType": "int"
+            },
+            "province": {
+              "bsonType": "string"
+            },
+            "religion": {
+              "bsonType": "string"
+            },
+            "secondaryId": {
+              "bsonType": "string"
+            },
+            "spouseContact": {
+              "bsonType": "string"
+            },
+            "spouseDOB": {
+              "bsonType": "string"
+            },
+            "spouseName": {
+              "bsonType": "string"
+            },
+            "status": {
+              "bsonType": "string"
+            },
+            "town": {
+              "bsonType": "string"
+            },
+            "townVillage": {
+              "title": "TownVillageEmbedded",
+              "bsonType": "object",
+              "properties": {
+                "__v": {
+                  "bsonType": "int"
+                },
+                "_id": {
+                  "bsonType": "string"
+                },
+                "createdBy": {
+                  "title": "UserEmbedded",
+                  "bsonType": "object",
+                  "properties": {
+                    "_id": {
+                      "bsonType": "string"
+                    },
+                    "firstName": {
+                      "bsonType": "string"
+                    },
+                    "lastName": {
+                      "bsonType": "string"
+                    }
+                  }
+                },
+                "deleted": {
+                  "bsonType": "bool"
+                },
+                "district": {
+                  "title": "DistrictEmbedded",
+                  "bsonType": "object",
+                  "properties": {
+                    "_id": {
+                      "bsonType": "string"
+                    },
+                    "country": {
+                      "title": "CountryEmbedded",
+                      "bsonType": "object",
+                      "properties": {
+                        "_id": {
+                          "bsonType": "string"
+                        },
+                        "name": {
+                          "bsonType": "string"
+                        }
+                      }
+                    },
+                    "name": {
+                      "bsonType": "string"
+                    }
+                  }
+                },
+                "name": {
+                  "bsonType": "string"
+                },
+                "secondaryId": {
+                  "bsonType": "string"
+                },
+                "townVillage": {
+                  "bsonType": "string"
+                }
+              }
+            },
+            "type": {
+              "bsonType": "string"
+            },
+            "typeOfAnimalAllowed": {
+              "bsonType": "string"
+            },
+            "unionCouncil": {
+              "bsonType": "string"
+            }
+          }
+        },
+        "coordinatorType": {
+          "bsonType": "string"
+        },
+        "deleted": {
+          "bsonType": "bool"
+        },
+        "familyPhoto": {
+          "bsonType": "string"
+        },
+        "flatNumber": {
+          "bsonType": "string"
+        },
+        "headshot": {
+          "bsonType": "string"
+        },
+        "housePhoto": {
+          "bsonType": "string"
+        },
+        "houseType": {
+          "bsonType": "string"
+        },
+        "name": {
+          "bsonType": "string"
+        },
+        "nationalID": {
+          "bsonType": "string"
+        },
+        "nearestFamousLandmard": {
+          "bsonType": "string"
+        },
+        "noAnimalsAllocated": {
+          "bsonType": "int"
+        },
+        "notes": {
+          "bsonType": "string"
+        },
+        "overseeTownsVillages": {
+          "bsonType": "array",
+          "items": {
+            "title": "TownVillageEmbedded",
+            "bsonType": "object",
+            "properties": {
+              "__v": {
+                "bsonType": "int"
+              },
+              "_id": {
+                "bsonType": "string"
+              },
+              "createdBy": {
+                "title": "UserEmbedded",
+                "bsonType": "object",
+                "properties": {
+                  "_id": {
+                    "bsonType": "string"
+                  },
+                  "firstName": {
+                    "bsonType": "string"
+                  },
+                  "lastName": {
+                    "bsonType": "string"
+                  }
+                }
+              },
+              "deleted": {
+                "bsonType": "bool"
+              },
+              "district": {
+                "title": "DistrictEmbedded",
+                "bsonType": "object",
+                "properties": {
+                  "_id": {
+                    "bsonType": "string"
+                  },
+                  "country": {
+                    "title": "CountryEmbedded",
+                    "bsonType": "object",
+                    "properties": {
+                      "_id": {
+                        "bsonType": "string"
+                      },
+                      "name": {
+                        "bsonType": "string"
+                      }
+                    }
+                  },
+                  "name": {
+                    "bsonType": "string"
+                  }
+                }
+              },
+              "name": {
+                "bsonType": "string"
+              },
+              "secondaryId": {
+                "bsonType": "string"
+              },
+              "townVillage": {
+                "bsonType": "string"
+              }
+            }
+          }
+        },
+        "policeStationThanaName": {
+          "bsonType": "string"
+        },
+        "postOfficeName": {
+          "bsonType": "string"
+        },
+        "postalCode": {
+          "bsonType": "int"
+        },
+        "province": {
+          "bsonType": "string"
+        },
+        "rejectedReason": {
+          "bsonType": "string"
+        },
+        "religion": {
+          "bsonType": "string"
+        },
+        "secondaryId": {
+          "bsonType": "string"
+        },
+        "spouseContact": {
+          "bsonType": "string"
+        },
+        "spouseDOB": {
+          "bsonType": "string"
+        },
+        "spouseName": {
+          "bsonType": "string"
+        },
+        "status": {
+          "bsonType": "string"
+        },
+        "town": {
+          "bsonType": "string"
+        },
+        "townVillage": {
+          "title": "TownVillageEmbedded",
+          "bsonType": "object",
+          "properties": {
+            "__v": {
+              "bsonType": "int"
+            },
+            "_id": {
+              "bsonType": "string"
+            },
+            "createdBy": {
+              "title": "UserEmbedded",
+              "bsonType": "object",
+              "properties": {
+                "_id": {
+                  "bsonType": "string"
+                },
+                "firstName": {
+                  "bsonType": "string"
+                },
+                "lastName": {
+                  "bsonType": "string"
+                }
+              }
+            },
+            "deleted": {
+              "bsonType": "bool"
+            },
+            "district": {
+              "title": "DistrictEmbedded",
+              "bsonType": "object",
+              "properties": {
+                "_id": {
+                  "bsonType": "string"
+                },
+                "country": {
+                  "title": "CountryEmbedded",
+                  "bsonType": "object",
+                  "properties": {
+                    "_id": {
+                      "bsonType": "string"
+                    },
+                    "name": {
+                      "bsonType": "string"
+                    }
+                  }
+                },
+                "name": {
+                  "bsonType": "string"
+                }
+              }
+            },
+            "name": {
+              "bsonType": "string"
+            },
+            "secondaryId": {
+              "bsonType": "string"
+            },
+            "townVillage": {
+              "bsonType": "string"
+            }
+          }
+        },
+        "type": {
+          "bsonType": "string"
+        },
+        "typeOfAnimalAllowed": {
+          "bsonType": "string"
+        },
+        "unionCouncil": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "nfcID": {
+      "bsonType": "string"
+    },
+    "cowPhoto": {
+      "bsonType": "string"
+    },
+    "weight": {
+      "bsonType": "int"
+    },
+    "gender": {
+      "bsonType": "string"
+    },
+    "type": {
+      "bsonType": "string"
+    },
+    "status": {
+      "bsonType": "string"
+    },
+    "birthDate": {
+      "bsonType": "date"
+    },
+    "dispersalDate": {
+      "bsonType": "date"
+    },
+    "cowWithFamilyPhoto": {
+      "bsonType": "string"
+    },
+    "taxPrice": {
+      "bsonType": "int"
+    },
+    "transportPrice": {
+      "bsonType": "int"
+    },
+    "coordinatorHelperExpenses": {
+      "bsonType": "int"
+    },
+    "coordinateHelperExpense": {
+      "bsonType": "int"
+    },
+    "signedLegalDoc": {
+      "bsonType": "string"
+    },
+    "age": {
+      "bsonType": "int"
+    },
+    "height": {
+      "bsonType": "int"
+    },
+    "purchaseDate": {
+      "bsonType": "date"
+    },
+    "signedDispersalAgreement": {
+      "bsonType": "string"
+    },
+    "colour": {
+      "bsonType": "string"
+    }
+  }
+}

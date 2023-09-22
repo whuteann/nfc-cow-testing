@@ -1,0 +1,47 @@
+{
+  "title": "District",
+  "properties": {
+    "__v": {
+      "bsonType": "int"
+    },
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "country": {
+      "title": "CountryEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "name": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "createdBy": {
+      "title": "UserEmbedded",
+      "bsonType": "object",
+      "properties": {
+        "_id": {
+          "bsonType": "string"
+        },
+        "firstName": {
+          "bsonType": "string"
+        },
+        "lastName": {
+          "bsonType": "string"
+        }
+      }
+    },
+    "deleted": {
+      "bsonType": "bool"
+    },
+    "name": {
+      "bsonType": "string"
+    },
+    "secondaryId": {
+      "bsonType": "string"
+    }
+  }
+}
